@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Faktury"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Faktury" Height="422.032" Width="656.134">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="648" RenderTransformOrigin="0.439,-0.234">
+            <MenuItem Header="_Plik" Click="MenuItem_Click">
+                <MenuItem Header="MenuItem" HorizontalAlignment="Left" Width="140"/>
+                <MenuItem Header="MenuItem" HorizontalAlignment="Left" Width="140"/>
+                <Separator HorizontalAlignment="Left" Width="140"/>
+                <MenuItem Header="MenuItem" HorizontalAlignment="Left" Width="140"/>
+            </MenuItem>
+        </Menu>
+        <TabControl HorizontalAlignment="Left" Height="371" Margin="0,20,0,0" VerticalAlignment="Top" Width="648">
+            <TabItem Header="Faktury">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Kontrahenci">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Window>

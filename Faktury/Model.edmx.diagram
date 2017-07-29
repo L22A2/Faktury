@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="646c5317befe4144b2aed2861ddf4f5a" Name="Diagram1" ZoomLevel="97" >
+        <EntityTypeShape EntityType="Model.Kontrahent" Width="1.5" PointX="7.875" PointY="1.5" />
+        <EntityTypeShape EntityType="Model.Adres" Width="1.5" PointX="11" PointY="1.5" />
+        <AssociationConnector Association="Model.AdresKontrahent" />
+        <EntityTypeShape EntityType="Model.Produkt" Width="1.5" PointX="4.125" PointY="6.625" />
+        <EntityTypeShape EntityType="Model.Jednostka" Width="1.5" PointX="8" PointY="6.5" />
+        <EntityTypeShape EntityType="Model.VAT" Width="1.5" PointX="8" PointY="8.625" />
+        <AssociationConnector Association="Model.ProduktVAT" />
+        <AssociationConnector Association="Model.ProduktJednostka" />
+        <EntityTypeShape EntityType="Model.Faktura" Width="1.5" PointX="4.125" PointY="1.75" />
+        <AssociationConnector Association="Model.FakturaKontrahent" />
+        <EntityTypeShape EntityType="Model.ElementFaktury" Width="1.5" PointX="4.125" PointY="4.375" />
+        <AssociationConnector Association="Model.ProduktElementFaktury" />
+        <AssociationConnector Association="Model.FakturaElementFaktury" />
+        <EntityTypeShape EntityType="Model.FormaZaplaty" Width="1.5" PointX="2" PointY="1.875" />
+        <AssociationConnector Association="Model.FormaZaplatyFaktura" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

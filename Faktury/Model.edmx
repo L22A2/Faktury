@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="KontrahentSet" EntityType="Model.Store.KontrahentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AdresSet" EntityType="Model.Store.AdresSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProduktSet" EntityType="Model.Store.ProduktSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JednostkaSet" EntityType="Model.Store.JednostkaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VATSet1" EntityType="Model.Store.VATSet1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FakturaSet" EntityType="Model.Store.FakturaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ElementFakturySet" EntityType="Model.Store.ElementFakturySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FormaZaplatySet" EntityType="Model.Store.FormaZaplatySet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="AdresKontrahent" Association="Model.Store.AdresKontrahent">
+      <End Role="Adres" EntitySet="AdresSet" />
+      <End Role="Kontrahent" EntitySet="KontrahentSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProduktVAT" Association="Model.Store.ProduktVAT">
+      <End Role="Produkt" EntitySet="ProduktSet" />
+      <End Role="VAT" EntitySet="VATSet1" />
+    </AssociationSet>
+    <AssociationSet Name="ProduktJednostka" Association="Model.Store.ProduktJednostka">
+      <End Role="Produkt" EntitySet="ProduktSet" />
+      <End Role="Jednostka" EntitySet="JednostkaSet" />
+    </AssociationSet>
+    <AssociationSet Name="FakturaKontrahent" Association="Model.Store.FakturaKontrahent">
+      <End Role="Faktura" EntitySet="FakturaSet" />
+      <End Role="Kontrahent" EntitySet="KontrahentSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProduktElementFaktury" Association="Model.Store.ProduktElementFaktury">
+      <End Role="Produkt" EntitySet="ProduktSet" />
+      <End Role="ElementFaktury" EntitySet="ElementFakturySet" />
+    </AssociationSet>
+    <AssociationSet Name="FakturaElementFaktury" Association="Model.Store.FakturaElementFaktury">
+      <End Role="Faktura" EntitySet="FakturaSet" />
+      <End Role="ElementFaktury" EntitySet="ElementFakturySet" />
+    </AssociationSet>
+    <AssociationSet Name="FormaZaplatyFaktura" Association="Model.Store.FormaZaplatyFaktura">
+      <End Role="FormaZaplaty" EntitySet="FormaZaplatySet" />
+      <End Role="Faktura" EntitySet="FakturaSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="KontrahentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nazwa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NIP" Type="nvarchar" Nullable="true" MaxLength="10" />
+    <Property Name="Telefon" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Adres_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdresSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ulica1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ulica2" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Ulica3" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Miasto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="KodPocztowy" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProduktSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nazwa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CenaNetto" Type="decimal" Nullable="false" />
+    <Property Name="VAT_Id" Type="int" Nullable="true" />
+    <Property Name="Jednostka_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JednostkaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nazwa" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VATSet1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Wartość" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FakturaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumerFaktury" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataWystawienia" Type="datetime" Nullable="false" />
+    <Property Name="DataSprzedazy" Type="datetime" Nullable="false" />
+    <Property Name="Kontrahent_Id" Type="int" Nullable="false" />
+    <Property Name="FormaZaplaty_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ElementFakturySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar(max)" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ilosc" Type="decimal" Nullable="false" />
+    <Property Name="Produkt_Id" Type="int" Nullable="false" />
+    <Property Name="Faktura_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FormaZaplatySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nazwa" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="AdresKontrahent">
+    <End Role="Adres" Type="Model.Store.AdresSet" Multiplicity="1" />
+    <End Role="Kontrahent" Type="Model.Store.KontrahentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Adres">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kontrahent">
+        <PropertyRef Name="Adres_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProduktVAT">
+    <End Role="Produkt" Type="Model.Store.ProduktSet" Multiplicity="*" />
+    <End Role="VAT" Type="Model.Store.VATSet1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="VAT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Produkt">
+        <PropertyRef Name="VAT_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProduktJednostka">
+    <End Role="Produkt" Type="Model.Store.ProduktSet" Multiplicity="*" />
+    <End Role="Jednostka" Type="Model.Store.JednostkaSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Jednostka">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Produkt">
+        <PropertyRef Name="Jednostka_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FakturaKontrahent">
+    <End Role="Faktura" Type="Model.Store.FakturaSet" Multiplicity="*" />
+    <End Role="Kontrahent" Type="Model.Store.KontrahentSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Kontrahent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Faktura">
+        <PropertyRef Name="Kontrahent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProduktElementFaktury">
+    <End Role="Produkt" Type="Model.Store.ProduktSet" Multiplicity="1" />
+    <End Role="ElementFaktury" Type="Model.Store.ElementFakturySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produkt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ElementFaktury">
+        <PropertyRef Name="Produkt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FakturaElementFaktury">
+    <End Role="Faktura" Type="Model.Store.FakturaSet" Multiplicity="1" />
+    <End Role="ElementFaktury" Type="Model.Store.ElementFakturySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faktura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ElementFaktury">
+        <PropertyRef Name="Faktura_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FormaZaplatyFaktura">
+    <End Role="FormaZaplaty" Type="Model.Store.FormaZaplatySet" Multiplicity="1" />
+    <End Role="Faktura" Type="Model.Store.FakturaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FormaZaplaty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Faktura">
+        <PropertyRef Name="FormaZaplaty_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KontrahentSet" EntityType="Model.Kontrahent" />
+          <EntitySet Name="AdresSet" EntityType="Model.Adres" />
+          <AssociationSet Name="AdresKontrahent" Association="Model.AdresKontrahent">
+            <End Role="Adres" EntitySet="AdresSet" />
+            <End Role="Kontrahent" EntitySet="KontrahentSet" />
+          </AssociationSet>
+          <EntitySet Name="ProduktSet" EntityType="Model.Produkt" />
+          <EntitySet Name="JednostkaSet" EntityType="Model.Jednostka" />
+          <EntitySet Name="VATSet1" EntityType="Model.VAT" />
+          <AssociationSet Name="ProduktVAT" Association="Model.ProduktVAT">
+            <End Role="Produkt" EntitySet="ProduktSet" />
+            <End Role="VAT" EntitySet="VATSet1" />
+          </AssociationSet>
+          <AssociationSet Name="ProduktJednostka" Association="Model.ProduktJednostka">
+            <End Role="Produkt" EntitySet="ProduktSet" />
+            <End Role="Jednostka" EntitySet="JednostkaSet" />
+          </AssociationSet>
+          <EntitySet Name="FakturaSet" EntityType="Model.Faktura" />
+          <AssociationSet Name="FakturaKontrahent" Association="Model.FakturaKontrahent">
+            <End Role="Faktura" EntitySet="FakturaSet" />
+            <End Role="Kontrahent" EntitySet="KontrahentSet" />
+          </AssociationSet>
+          <EntitySet Name="ElementFakturySet" EntityType="Model.ElementFaktury" />
+          <AssociationSet Name="ProduktElementFaktury" Association="Model.ProduktElementFaktury">
+            <End Role="Produkt" EntitySet="ProduktSet" />
+            <End Role="ElementFaktury" EntitySet="ElementFakturySet" />
+          </AssociationSet>
+          <AssociationSet Name="FakturaElementFaktury" Association="Model.FakturaElementFaktury">
+            <End Role="Faktura" EntitySet="FakturaSet" />
+            <End Role="ElementFaktury" EntitySet="ElementFakturySet" />
+          </AssociationSet>
+          <EntitySet Name="FormaZaplatySet" EntityType="Model.FormaZaplaty" />
+          <AssociationSet Name="FormaZaplatyFaktura" Association="Model.FormaZaplatyFaktura">
+            <End Role="FormaZaplaty" EntitySet="FormaZaplatySet" />
+            <End Role="Faktura" EntitySet="FakturaSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kontrahent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="String" Nullable="false" />
+          <Property Name="NIP" Type="String" Nullable="true" MaxLength="10" />
+          <Property Name="Telefon" Type="String" Nullable="true" />
+          <NavigationProperty Name="Adres" Relationship="Model.AdresKontrahent" FromRole="Kontrahent" ToRole="Adres" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="Faktura" Relationship="Model.FakturaKontrahent" FromRole="Kontrahent" ToRole="Faktura" />
+        </EntityType>
+        <EntityType Name="Adres">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ulica1" Type="String" Nullable="false" />
+          <Property Name="Ulica2" Type="String" Nullable="true" />
+          <Property Name="Ulica3" Type="String" Nullable="true" />
+          <Property Name="Miasto" Type="String" Nullable="false" />
+          <NavigationProperty Name="Kontrahent" Relationship="Model.AdresKontrahent" FromRole="Adres" ToRole="Kontrahent" />
+          <Property Name="KodPocztowy" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="AdresKontrahent">
+          <End Type="Model.Adres" Role="Adres" Multiplicity="1" />
+          <End Type="Model.Kontrahent" Role="Kontrahent" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Produkt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="String" Nullable="false" />
+          <Property Name="CenaNetto" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="VAT" Relationship="Model.ProduktVAT" FromRole="Produkt" ToRole="VAT" />
+          <NavigationProperty Name="Jednostka" Relationship="Model.ProduktJednostka" FromRole="Produkt" ToRole="Jednostka" />
+          <NavigationProperty Name="ElementFaktury" Relationship="Model.ProduktElementFaktury" FromRole="Produkt" ToRole="ElementFaktury" />
+        </EntityType>
+        <EntityType Name="Jednostka">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="String" Nullable="false" />
+          <NavigationProperty Name="Produkt" Relationship="Model.ProduktJednostka" FromRole="Jednostka" ToRole="Produkt" />
+        </EntityType>
+        <EntityType Name="VAT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Wartość" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Produkt" Relationship="Model.ProduktVAT" FromRole="VAT" ToRole="Produkt" />
+        </EntityType>
+        <Association Name="ProduktVAT">
+          <End Type="Model.Produkt" Role="Produkt" Multiplicity="*" />
+          <End Type="Model.VAT" Role="VAT" Multiplicity="0..1" />
+        </Association>
+        <Association Name="ProduktJednostka">
+          <End Type="Model.Produkt" Role="Produkt" Multiplicity="*" />
+          <End Type="Model.Jednostka" Role="Jednostka" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Faktura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Kontrahent" Relationship="Model.FakturaKontrahent" FromRole="Faktura" ToRole="Kontrahent" />
+          <NavigationProperty Name="ElementFaktury" Relationship="Model.FakturaElementFaktury" FromRole="Faktura" ToRole="ElementFaktury" />
+          <Property Name="NumerFaktury" Type="String" Nullable="false" />
+          <Property Name="DataWystawienia" Type="DateTime" Nullable="false" />
+          <Property Name="DataSprzedazy" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="FormaZaplaty" Relationship="Model.FormaZaplatyFaktura" FromRole="Faktura" ToRole="FormaZaplaty" />
+        </EntityType>
+        <Association Name="FakturaKontrahent">
+          <End Type="Model.Faktura" Role="Faktura" Multiplicity="*" />
+          <End Type="Model.Kontrahent" Role="Kontrahent" Multiplicity="1" />
+        </Association>
+        <EntityType Name="ElementFaktury">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <NavigationProperty Name="Produkt" Relationship="Model.ProduktElementFaktury" FromRole="ElementFaktury" ToRole="Produkt" />
+          <NavigationProperty Name="Faktura" Relationship="Model.FakturaElementFaktury" FromRole="ElementFaktury" ToRole="Faktura" />
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ilosc" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <Association Name="ProduktElementFaktury">
+          <End Type="Model.Produkt" Role="Produkt" Multiplicity="1" />
+          <End Type="Model.ElementFaktury" Role="ElementFaktury" Multiplicity="*" />
+        </Association>
+        <Association Name="FakturaElementFaktury">
+          <End Type="Model.Faktura" Role="Faktura" Multiplicity="1" />
+          <End Type="Model.ElementFaktury" Role="ElementFaktury" Multiplicity="*" />
+        </Association>
+        <EntityType Name="FormaZaplaty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="String" Nullable="false" />
+          <NavigationProperty Name="Faktura" Relationship="Model.FormaZaplatyFaktura" FromRole="FormaZaplaty" ToRole="Faktura" />
+        </EntityType>
+        <Association Name="FormaZaplatyFaktura">
+          <End Type="Model.FormaZaplaty" Role="FormaZaplaty" Multiplicity="1" />
+          <End Type="Model.Faktura" Role="Faktura" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="KontrahentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Kontrahent)">
+        <MappingFragment StoreEntitySet="KontrahentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+          <ScalarProperty Name="NIP" ColumnName="NIP" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdresSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Adres)">
+        <MappingFragment StoreEntitySet="AdresSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ulica1" ColumnName="Ulica1" />
+          <ScalarProperty Name="Ulica2" ColumnName="Ulica2" />
+          <ScalarProperty Name="Ulica3" ColumnName="Ulica3" />
+          <ScalarProperty Name="Miasto" ColumnName="Miasto" />
+          <ScalarProperty Name="KodPocztowy" ColumnName="KodPocztowy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProduktSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Produkt)">
+        <MappingFragment StoreEntitySet="ProduktSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+          <ScalarProperty Name="CenaNetto" ColumnName="CenaNetto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JednostkaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Jednostka)">
+        <MappingFragment StoreEntitySet="JednostkaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VATSet1">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VAT)">
+        <MappingFragment StoreEntitySet="VATSet1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Wartość" ColumnName="Wartość" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FakturaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Faktura)">
+        <MappingFragment StoreEntitySet="FakturaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumerFaktury" ColumnName="NumerFaktury" />
+          <ScalarProperty Name="DataWystawienia" ColumnName="DataWystawienia" />
+          <ScalarProperty Name="DataSprzedazy" ColumnName="DataSprzedazy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ElementFakturySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.ElementFaktury)">
+        <MappingFragment StoreEntitySet="ElementFakturySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ilosc" ColumnName="Ilosc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FormaZaplatySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.FormaZaplaty)">
+        <MappingFragment StoreEntitySet="FormaZaplatySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AdresKontrahent" TypeName="Model.AdresKontrahent" StoreEntitySet="KontrahentSet">
+      <EndProperty Name="Adres">
+        <ScalarProperty Name="Id" ColumnName="Adres_Id" />
+      </EndProperty>
+      <EndProperty Name="Kontrahent">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProduktVAT" TypeName="Model.ProduktVAT" StoreEntitySet="ProduktSet">
+      <EndProperty Name="VAT">
+        <ScalarProperty Name="Id" ColumnName="VAT_Id" />
+      </EndProperty>
+      <EndProperty Name="Produkt">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="VAT_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProduktJednostka" TypeName="Model.ProduktJednostka" StoreEntitySet="ProduktSet">
+      <EndProperty Name="Jednostka">
+        <ScalarProperty Name="Id" ColumnName="Jednostka_Id" />
+      </EndProperty>
+      <EndProperty Name="Produkt">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FakturaKontrahent" TypeName="Model.FakturaKontrahent" StoreEntitySet="FakturaSet">
+      <EndProperty Name="Kontrahent">
+        <ScalarProperty Name="Id" ColumnName="Kontrahent_Id" />
+      </EndProperty>
+      <EndProperty Name="Faktura">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProduktElementFaktury" TypeName="Model.ProduktElementFaktury" StoreEntitySet="ElementFakturySet">
+      <EndProperty Name="Produkt">
+        <ScalarProperty Name="Id" ColumnName="Produkt_Id" />
+      </EndProperty>
+      <EndProperty Name="ElementFaktury">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FakturaElementFaktury" TypeName="Model.FakturaElementFaktury" StoreEntitySet="ElementFakturySet">
+      <EndProperty Name="Faktura">
+        <ScalarProperty Name="Id" ColumnName="Faktura_Id" />
+      </EndProperty>
+      <EndProperty Name="ElementFaktury">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FormaZaplatyFaktura" TypeName="Model.FormaZaplatyFaktura" StoreEntitySet="FakturaSet">
+      <EndProperty Name="FormaZaplaty">
+        <ScalarProperty Name="Id" ColumnName="FormaZaplaty_Id" />
+      </EndProperty>
+      <EndProperty Name="Faktura">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
